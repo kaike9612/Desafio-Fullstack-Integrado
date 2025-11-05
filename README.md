@@ -13,7 +13,7 @@ Criar uma solução completa em camadas (DB, EJB, Backend, Frontend) para gerenc
 
 ## Estrutura do Projeto
 
-\`\`\`
+```
 bip-teste-integrado/
 ├── db/                     # Scripts de banco de dados
 │   ├── schema.sql         # Definição de tabelas
@@ -37,7 +37,7 @@ bip-teste-integrado/
 │       └── models/        # Modelos TypeScript
 ├── docs/                  # Documentação
 └── .github/workflows/     # CI/CD
-\`\`\`
+```
 
 ## Correções Implementadas
 
@@ -91,17 +91,17 @@ bip-teste-integrado/
 
 Execute os scripts na ordem:
 
-\`\`\`bash
+```bash
 # Criar tabelas
 psql -U usuario -d database -f db/schema.sql
 
 # Inserir dados iniciais
 psql -U usuario -d database -f db/seed.sql
-\`\`\`
+```
 
 ### 2. Backend
 
-\`\`\`bash
+```bash
 cd backend-module
 
 # Compilar
@@ -109,7 +109,7 @@ mvn clean install
 
 # Executar
 mvn spring-boot:run
-\`\`\`
+```
 
 O backend estará disponível em: `http://localhost:8080`
 
@@ -119,7 +119,7 @@ O backend estará disponível em: `http://localhost:8080`
 
 ### 3. Frontend
 
-\`\`\`bash
+```bash
 cd frontend
 
 # Instalar dependências
@@ -127,7 +127,7 @@ npm install
 
 # Executar
 npm start
-\`\`\`
+```
 
 O frontend estará disponível em: `http://localhost:4200`
 
@@ -156,16 +156,16 @@ Content-Type: application/json
   "toId": 2,
   "amount": 200.00
 }
-\`\`\`
+```
 
 ## Testes
 
 ### Backend
 
-\`\`\`bash
+```bash
 cd backend-module
 mvn test
-\`\`\`
+```
 
 **Cobertura de Testes:**
 - Service Layer: 90%+
@@ -174,10 +174,10 @@ mvn test
 
 ### Frontend
 
-\`\`\`bash
+```bash
 cd frontend
 npm test
-\`\`\`
+```
 
 ## Arquitetura
 
@@ -240,13 +240,13 @@ npm test
 
 Pipeline GitHub Actions configurado:
 
-\`\`\`yaml
+```yaml
 - Checkout código
 - Setup JDK 17
 - Build Maven
 - Executar testes
 - Gerar relatórios
-\`\`\`
+```
 
 ## Documentação API
 
