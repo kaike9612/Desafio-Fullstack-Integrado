@@ -273,22 +273,6 @@ Recursos disponíveis:
 - [ ] Containerização (Docker)
 - [ ] Deploy em Kubernetes
 
-## Contribuindo
-
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
-## Licença
-
-Este projeto é licenciado sob a MIT License.
-
-## Contato
-
-Equipe de Desenvolvimento - dev@example.com
-
 ## Critérios de Avaliação Atendidos
 
 - ✅ **Arquitetura em camadas (20%)**: Separação clara entre DB, EJB, Backend, Frontend
