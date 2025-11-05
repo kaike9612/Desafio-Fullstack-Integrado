@@ -1,0 +1,27 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      
+      - name: Build EJB Module
+        run: mvn -B -f ejb-module clean package
+      
+      - name: Build Backend Module
+        run: mvn -B -f backend-module clean package
+      
+      - name: Run Backend Tests
+        run: mvn -B -f backend-module test
+      
+      - name: Run EJB Tests
+        run: mvn -B -f ejb-module test

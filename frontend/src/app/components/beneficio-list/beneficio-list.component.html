@@ -1,0 +1,177 @@
+<div class="container">
+  <!-- Messages -->
+  <div *ngIf="errorMessage" class="alert alert-error">
+    {{ errorMessage }}
+    <button (click)="clearMessages()" class="close-btn">&times;</button>
+  </div>
+  
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+    <button (click)="clearMessages()" class="close-btn">&times;</button>
+  </div>
+
+  <!-- Form Section -->
+  <div class="card">
+    <h2>{{ isEditing ? 'Editar Benefício' : 'Novo Benefício' }}</h2>
+    <form (ngSubmit)="onSubmit()" class="form">
+      <div class="form-group">
+        <label for="nome">Nome *</label>
+        <input 
+          type="text" 
+          id="nome" 
+          [(ngModel)]="formBeneficio.nome" 
+          name="nome" 
+          required
+          class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="descricao">Descrição</label>
+        <textarea 
+          id="descricao" 
+          [(ngModel)]="formBeneficio.descricao" 
+          name="descricao"
+          rows="3"
+          class="form-control"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="valor">Valor *</label>
+        <input 
+          type="number" 
+          id="valor" 
+          [(ngModel)]="formBeneficio.valor" 
+          name="valor" 
+          step="0.01"
+          required
+          class="form-control">
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label>
+          <input 
+            type="checkbox" 
+            [(ngModel)]="formBeneficio.ativo" 
+            name="ativo">
+          Ativo
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+          {{ isEditing ? 'Atualizar' : 'Criar' }}
+        </button>
+        <button type="button" (click)="resetForm()" class="btn btn-secondary">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- List Section -->
+  <div class="card">
+    <div class="card-header">
+      <h2>Lista de Benefícios</h2>
+      <button (click)="openTransferModal()" class="btn btn-accent">
+        Transferir Valor
+      </button>
+    </div>
+
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Valor</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let beneficio of beneficios">
+            <td>{{ beneficio.id }}</td>
+            <td>{{ beneficio.nome }}</td>
+            <td>{{ beneficio.descricao }}</td>
+            <td>{{ beneficio.valor | currency:'BRL' }}</td>
+            <td>
+              <span [class]="beneficio.ativo ? 'badge badge-success' : 'badge badge-inactive'">
+                {{ beneficio.ativo ? 'Ativo' : 'Inativo' }}
+              </span>
+            </td>
+            <td>
+              <button (click)="editBeneficio(beneficio)" class="btn btn-sm btn-edit">
+                Editar
+              </button>
+              <button (click)="deleteBeneficio(beneficio.id!)" class="btn btn-sm btn-delete">
+                Deletar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Transfer Modal -->
+  <div *ngIf="showTransferModal" class="modal-overlay" (click)="closeTransferModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Transferir Valor</h3>
+        <button (click)="closeTransferModal()" class="close-btn">&times;</button>
+      </div>
+      
+      <form (ngSubmit)="executeTransfer()" class="form">
+        <div class="form-group">
+          <label for="fromId">De (ID) *</label>
+          <select 
+            id="fromId" 
+            [(ngModel)]="transferRequest.fromId" 
+            name="fromId" 
+            required
+            class="form-control">
+            <option value="0">Selecione...</option>
+            <option *ngFor="let b of beneficios" [value]="b.id">
+              {{ b.id }} - {{ b.nome }} ({{ b.valor | currency:'BRL' }})
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="toId">Para (ID) *</label>
+          <select 
+            id="toId" 
+            [(ngModel)]="transferRequest.toId" 
+            name="toId" 
+            required
+            class="form-control">
+            <option value="0">Selecione...</option>
+            <option *ngFor="let b of beneficios" [value]="b.id">
+              {{ b.id }} - {{ b.nome }} ({{ b.valor | currency:'BRL' }})
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="amount">Valor *</label>
+          <input 
+            type="number" 
+            id="amount" 
+            [(ngModel)]="transferRequest.amount" 
+            name="amount" 
+            step="0.01"
+            required
+            class="form-control">
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Transferir</button>
+          <button type="button" (click)="closeTransferModal()" class="btn btn-secondary">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
