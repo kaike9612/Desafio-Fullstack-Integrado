@@ -9,23 +9,23 @@ Aplicação Angular para gerenciamento de benefícios com operações CRUD e tra
 
 ## Instalação
 
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+```
 
 ## Executar
 
-\`\`\`bash
+```bash
 npm start
-\`\`\`
+```
 
 A aplicação estará disponível em `http://localhost:4200`
 
 ## Build
 
-\`\`\`bash
+```bash
 npm run build
-\`\`\`
+```
 
 ## Funcionalidades
 
@@ -37,7 +37,7 @@ npm run build
 
 ## Estrutura
 
-\`\`\`
+```
 src/
 ├── app/
 │   ├── components/
